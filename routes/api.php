@@ -18,18 +18,18 @@ Route::get('/', fn () => 'hola api');
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group([
-    'prefix' => 'v1'
-], function () {
-
+Route::prefix('v1')->group( function () {
 
     Route::group([
-        'prefix' => 'products'
+        'prefix' => 'products',
+        'middleware'=>'auth:api'
     ], function () {
-
-        Route::get('/','ProductController@getAll');
-
+        Route::get('/', 'ProductController@getAll');
+        Route::post('/', 'ProductController@insert');
     });
 
-
+    Route::prefix('users')->group(function () {
+        Route::post('/register', 'UserController@register');
+        Route::post('/login', 'UserController@login');
+    });
 });
