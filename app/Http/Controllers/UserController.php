@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -30,5 +31,19 @@ class UserController extends Controller
             $user,
             $token
         ]);
+    }
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+        // DB::table('oauth_access_tokens')->where('revoked',1)->delete();
+        return [
+            'mensaje' => 'User successfully logged out'
+        ];
+    }
+    public function getUserInfo(Request $request)
+    {
+        $user = Auth::user();//req.user
+        // $request->user();
+        return $user;
     }
 }
