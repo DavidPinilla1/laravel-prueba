@@ -17,6 +17,7 @@ class ProductController extends Controller
     {
         $body = $request->all();//req.body
         // dump($body);//dump() y dd() son de laravel, var_dump() de php, dd() corta el flujo
+        
         $product = Product::create($body);
         return $product;
     }
