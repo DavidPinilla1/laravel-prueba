@@ -28,22 +28,22 @@ class UserController extends Controller
         $user = Auth::user(); //req.user tb podemos utilizar $request->user()
         $token = $user->createToken('authToken')->accessToken;
         return response([
-            $user,
-            $token
+            'user' => $user,
+            'token' => $token
         ]);
     }
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
         // DB::table('oauth_access_tokens')->where('revoked',1)->delete();
-        return [
+        return response([
             'mensaje' => 'User successfully logged out'
-        ];
+        ]);
     }
     public function getUserInfo(Request $request)
     {
-        $user = Auth::user();//req.user
+        $user = Auth::user(); //req.user
         // $request->user();
-        return $user;
+        return response($user);
     }
 }
