@@ -10,6 +10,7 @@ Route::prefix('v1')->group( function () {
         'middleware'=>'auth:api'
     ], function () {
         Route::get('/', 'ProductController@getAll');
+        Route::get('/{id}', 'ProductController@getById');
         Route::post('/', 'ProductController@insert');
     });
 
